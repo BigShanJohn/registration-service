@@ -1,0 +1,31 @@
+{
+    "name": "registration",
+    "version": "1.0.0",
+    "description": "User Registration Service",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "test": "mocha --timeout 10000"
+    },
+    "keywords": [
+        "Registration"
+    ],
+    "author": "Adeniji Olusegun",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "ckey": "^1.0.2",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "http-status": "^1.5.0",
+        "redis": "^3.1.2",
+        "uuid": "^8.3.2",
+        "validatorjs": "^3.22.1"
+    },
+    "devDependencies": {
+        "chai": "^4.3.4",
+        "mocha": "^9.1.1",
+        "should": "^13.2.3",
+        "supertest": "^6.1.6"
+    }
+}
