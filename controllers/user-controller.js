@@ -7,31 +7,25 @@ module.exports = {
         const client = req.app.get('client');
         const { fullname, email, password } = req.body;
         const newUser = User(fullname, email, password);
+        Repository.checkRecord(email, client).then((result) => {
+            if (result != null) {
 
-        Repository.getOne(email, client)
-            .then(user => {
-                if (user) {
+                return res.status(200).send({
+                    success: false,
+                    message: 'Record Exist'
+                });
+
+            } else {
+                Manager.add(newUser, s).then((user) => {
+
                     return res.status(200).send({
-                        success: false,
-                        message: 'Record Exist'
+                        success: true,
+                        data: user
                     });
-                }
 
-                Manager.add(newUser, client)
-                    .then(user => {
-                        res.status(200).send({
-                            success: true,
-                            data: user
-                        });
-                    })
-                    .catch((err) => this.error(res));
-            })
-            .catch((err) => this.error(res));
-    },
-    error: (res) => {
-        res.status(412).send({
-            success: false,
-            message: err
+                });
+
+            }
         });
     }
 }

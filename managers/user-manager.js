@@ -1,15 +1,13 @@
 'use strict'
 module.exports = {
-    add: (user, client) => {
-        return new Promise((resolve, reject) => {
-            client.hmset(user.email, user, function(err, reply) {
-                if (err) {
-                    reject('An error occurred registring a user, err:' + err)
-                }
-                console.log(reply); // OK
-                resolve(user);
-            });
-
-        })
+    add: async(user, client) => {
+        try {
+            const result = await client.xadd("userstream", "*", "fullname", user.fullname, "email", user.email, "password", user.password, "dateCreated", user.dateCreated);
+            user.id = result;
+            client.set(user.email, user.id);
+            return user;
+        } catch (e) {
+            return false;
+        }
     }
 }

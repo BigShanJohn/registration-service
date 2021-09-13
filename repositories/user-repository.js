@@ -1,15 +1,15 @@
 'use strict'
 
 module.exports = {
-    getOne: (key, client) => {
+    checkRecord: (email, client) => {
         return new Promise((resolve, reject) => {
-            client.hgetall(key, function(err, object) {
+            client.get(email, function(err, result) {
                 if (err) {
-                    reject('An error occurred when retreving  a user, err:' + err)
+                    reject('An error occurred when retreving  a user, err:' + err);
+                } else {
+                    resolve(result);
                 }
-                console.log(object); // OK
-                resolve(object);
             });
-        })
+        });
     }
 }
